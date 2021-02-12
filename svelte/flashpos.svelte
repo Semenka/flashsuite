@@ -11,10 +11,11 @@
   let network;
   let balance;
   let signer;
+  $: console.log("ADDRESS FLASHPOS", address);
 
   let positionsAlice = [];
-  let Alice = "";
-  let Bob = "";
+  let origin = "";
+  let destination = "";
   let startMigration = false;
   let migrationInProgress = false;
   let step = 0;
@@ -39,16 +40,17 @@
     alert("FlashAccount is in beta mode ! only available on Kovan\nPlease switch to the Kovan testnet");
   }
 
-  // FIRST ADDRESS IS ALICE, SECOND ADDRESS BOB
-  $: {
-    if (address && address != Alice && address != Bob && step <= 4)
-      if (!Alice) {
-        Alice = address;
+  // FIRST ADDRESS IS origin, SECOND ADDRESS BOB
+  $: if (address) {
+    if (step < 4) {
+      if (origin && !destination) {
+        destination = address;
       } else {
-        if (step == 4) {
-          Bob = address;
-        }
+        origin = address;
       }
+    } else if (step == 4) {
+      destination = address;
+    }
   }
 
   // BALANCE TO LOW
@@ -64,18 +66,18 @@
     reget++;
   }
   // STEP 0 : initial state
-  $: if (Alice && step == 0) step1();
-  // STEP 1 : address Alice defined
-  $: if (Alice && $Dashboards[Alice] && step < 2) step2();
-  // STEP 2 : dashboard Alice retrieved
+  $: if (origin && step == 0) step1();
+  // STEP 1 : address origin defined
+  $: if (origin && $Dashboards[origin] && step < 2) step2();
+  // STEP 2 : dashboard origin retrieved
   // Click button
   // STEP 3 : start migration
   // Transfers approved
   // STEP 4 : connect destination
-  $: if (Bob && step == 4) step5();
-  // STEP 5 : address Bob defined
-  $: if (Bob && $Dashboards[Bob] && step == 5) step6();
-  // STEP 6 : dashboard Bob retreived
+  $: if (destination && step == 4) step5();
+  // STEP 5 : address destination defined
+  $: if (destination && $Dashboards[destination] && step == 5) step6();
+  // STEP 6 : dashboard destination retreived
   // Transfers approved
   // STEP 7 : call flashloan
   // Flashlaon approval
@@ -86,13 +88,13 @@
   async function step0() {
     step = 0;
     originMessage = "Please connect to the account you want to migrate from";
-    if (Alice) step1();
+    if (origin) step1();
   }
   async function step1() {
     step = 1;
     originMessage = "Origin account connected, retrieving AAVE positions...";
     startMigration = false;
-    if (Alice && $Dashboards[Alice]) step2();
+    if (origin && $Dashboards[origin]) step2();
   }
   async function step2() {
     step = 2;
@@ -101,10 +103,10 @@
   }
   async function step3() {
     handleRefresh();
-    if (address != Alice) {
-      console.log("STEP3: Wrong account", address, Alice);
-      $Dashboards[Alice] = null;
-      Alice = "";
+    if (address != origin) {
+      console.log("STEP3: Wrong account", address, origin);
+      $Dashboards[origin] = null;
+      origin = "";
       message2 = "<<< Keep your browser wallet connected with same origin account !";
       setTimeout(step0, 2000);
       return;
@@ -112,7 +114,7 @@
     step = 3;
     startMigration = false;
     migrationInProgress = true;
-    positionsAlice = $Dashboards[Alice].filter((pos) => pos.checked);
+    positionsAlice = $Dashboards[origin].filter((pos) => pos.checked);
 
     const deposits = positionsAlice.filter((pos) => pos.type == 0);
     const nd = deposits.length;
@@ -159,14 +161,14 @@
   async function step4() {
     step = 4;
     message = "Please connect your destination account";
-    if (Bob) step5();
+    if (destination) step5();
   }
   async function step5() {
     step = 5;
     message2 = "";
     message = "Destination account connected, retrieving AAVE positions...";
     showSpinner = true;
-    if (Bob && $Dashboards[Bob]) step6();
+    if (destination && $Dashboards[destination]) step6();
   }
   async function step6() {
     step = 6;
@@ -220,7 +222,7 @@
 
     alertBalance();
     try {
-      const tx = await FlashAccountsContract.callFlashLoanTx(positionsAlice, Alice, Bob, signer);
+      const tx = await FlashAccountsContract.callFlashLoanTx(positionsAlice, origin, destination, signer);
       console.log(`TX3 FLASH LOAN ${ethscan}/tx/${tx.hash}`);
       message2 = "";
       showAnimation = true;
@@ -272,8 +274,8 @@
           <div id="amountDep02ORG" class="textdarkmode button">Position Migration</div>
         </div>
         {#key refresh}
-          <Dashboard address={Alice} name={"Origin"} bind:origin={Alice} ribbonMessage={originMessage} bind:reget bind:healthFactorChecked={healthFactorNextBob} />
-          <Dashboard address={Bob} name={"Destination"} bind:origin={Alice} bind:reget bind:healthFactorNext={healthFactorNextBob} />
+          <Dashboard bind:address={origin} name={"Origin " + (address==origin? "S":"")} ribbonMessage={originMessage} bind:reget />
+          <Dashboard bind:address={destination} name={"Destination " + (address==destination? "S":"")} bind:reget />
         {/key}
       </div>
       {#if showAnimation}
@@ -314,9 +316,13 @@
                 {/if}
               </div>
             </div>
-
           </div>
         {/if}
+        <small>
+          Signer {address}<br />
+          origin {origin}<br />
+          destination {destination}<br />
+        </small>
       </div>
     </div>
   </div>

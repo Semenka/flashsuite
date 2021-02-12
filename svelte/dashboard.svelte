@@ -5,7 +5,6 @@
   import ListBox from "./listbox.svelte";
 
   export let address;
-  export let origin;
 
   export let ribbonMessage = "";
   export let reget = 0;
@@ -22,7 +21,7 @@
   $: reget && handleReGet();
 
   function getTokenLogo(symbol) {
-    let ret = "images/no_logo.svg";
+    let ret = "images/assets/no_logo.svg";
 
     const coins = [
       "DAI",
@@ -49,7 +48,7 @@
       "ZRX",
     ];
     for (const coin of coins) {
-      if (symbol.includes(coin.toLocaleUpperCase())) ret = `images/${coin.toLowerCase()}_logo.svg`;
+      if (symbol.includes(coin.toLocaleUpperCase())) ret = `images/assets/${coin.toLowerCase()}_logo.svg`;
     }
     return ret;
   }
@@ -87,7 +86,7 @@
     } else {
       if (address) {
         ({ healthFactor } = await aaveDashboard2.getHealthFactors($Dashboards[address]));
-        ({ healthFactor: healthFactorNext } = await aaveDashboard2.getHealthFactors2($Dashboards[origin], $Dashboards[address]));
+        ({ healthFactor: healthFactorNext } = await aaveDashboard2.getHealthFactors2($Dashboards[address], $Dashboards[address]));
       }
     }
   }
@@ -212,7 +211,7 @@
                           {_bal(item.amount, item.decimals)}
                         </div>
                       </div>
-                      {#if address == origin}
+                      {#if isOrigin()}
                         <div class="fs-checkmark">
                           {#if item.checked}
                             <img src="images/checked_white.svg" loading="lazy" alt="" />
@@ -255,6 +254,9 @@
           <div on:click={handleReGet} id="refreshFlashPos" class="textlightmode button">Refresh Dashboard</div>
         </div>
       </div>
+      <small>
+        address {address}<br />
+      </small>
     </div>
   {/key}
 </main>
