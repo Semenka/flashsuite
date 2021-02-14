@@ -11,6 +11,7 @@
   let network;
   let balance;
   let signer;
+  let ethersSigner;
   $: console.log("ADDRESS FLASHPOS", address);
 
   let positionsAlice = [];
@@ -131,7 +132,7 @@
         for (const deposit of deposits) {
           const amount = `${_bal(deposit.amount, deposit.decimals)} ${deposit.symbol}`;
           message = `Please approve the transfer of your ${nd} deposit${nd > 1 ? "s" : ""} with your browser wallet`;
-          txsDeposit[ic] = FlashAccountsContract.approveTransfer(deposit, signer);
+          txsDeposit[ic] = FlashAccountsContract.approveTransfer(deposit, ethersSigner);
           amounts[ic] = amount;
           ic++;
         }
@@ -190,7 +191,7 @@
         for (const loan of loans) {
           const amount = `${_bal(loan.amount, loan.decimals)} ${loan.symbol}`;
           message = `Approve the ${nl > 1 ? `${nl} transactions` : "transaction"} to borrow the loan${nl > 1 ? "s" : ""} you want to migrate`;
-          txsLoan[ic] = await FlashAccountsContract.approveLoan(loan, signer);
+          txsLoan[ic] = await FlashAccountsContract.approveLoan(loan, ethersSigner);
           amounts[ic] = amount;
           ic++;
         }
@@ -222,7 +223,7 @@
 
     alertBalance();
     try {
-      const tx = await FlashAccountsContract.callFlashLoanTx(positionsAlice, origin, destination, signer);
+      const tx = await FlashAccountsContract.callFlashLoanTx(positionsAlice, origin, destination, ethersSigner);
       console.log(`TX3 FLASH LOAN ${ethscan}/tx/${tx.hash}`);
       message2 = "";
       showAnimation = true;

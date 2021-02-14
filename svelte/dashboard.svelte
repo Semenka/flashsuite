@@ -3,6 +3,7 @@
   import aaveDashboard2 from "../lib/aaveDashboard2.mjs";
   import { Dashboards } from "./stores.mjs";
   import ListBox from "./listbox.svelte";
+  import { writable } from "svelte/store";
 
   export let address;
 
@@ -18,6 +19,8 @@
   export let healthFactorNext = "_";
 
   $: address && getDashboard();
+  $: console.log("ADDRESS DASHBOARD", name, address);
+
   $: reget && handleReGet();
 
   function getTokenLogo(symbol) {
@@ -80,15 +83,15 @@
     return name == "Origin";
   }
   async function handleHealthFactor() {
-    if (isOrigin()) {
-      ({ healthFactor, healthFactorUnchecked, healthFactorChecked } = await aaveDashboard2.getHealthFactors($Dashboards[address]));
-      healthFactorNext = healthFactorUnchecked;
-    } else {
-      if (address) {
-        ({ healthFactor } = await aaveDashboard2.getHealthFactors($Dashboards[address]));
-        ({ healthFactor: healthFactorNext } = await aaveDashboard2.getHealthFactors2($Dashboards[address], $Dashboards[address]));
-      }
-    }
+    // if (isOrigin()) {
+    //   ({ healthFactor, healthFactorUnchecked, healthFactorChecked } = await aaveDashboard2.getHealthFactors($Dashboards[address]));
+    //   healthFactorNext = healthFactorUnchecked;
+    // } else {
+    //   if (address) {
+    //     ({ healthFactor } = await aaveDashboard2.getHealthFactors($Dashboards[address]));
+    //     ({ healthFactor: healthFactorNext } = await aaveDashboard2.getHealthFactors2($Dashboards[address], $Dashboards[address]));
+    //   }
+    // }
   }
   function handleReGet() {
     getDashboard(true);
