@@ -6,7 +6,7 @@
   let signer;
 </script>
 
-<Container bind:address bind:balance bind:network bind:signer>
+<Container >
   <div data-w-id="4a69aa65-f69d-177b-618b-fec329a2edbb" style="opacity:1" class="header1400container">
     <div class="headercontents left">
       <img src="images/FLSuite-Logo-Full-Dark.svg" loading="eager" width="400" id="flashSuiteLogo" alt="" class="flashsuitelogo" />

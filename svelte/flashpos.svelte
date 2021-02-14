@@ -5,18 +5,18 @@
   import FlashAccountsContract from "../lib/contracts/FlashAccounts.mjs";
   import Dashboard from "./dashboard.svelte";
   import Container from "./container.svelte";
+  import { signer, chainId } from "./metamask.mjs";
 
   // exports Metamask
   let address;
-  let chainId="0x2a";
   let balance;
-  let signer;
   let provider;
 
   onMount(async function () {
-    provider = ethers.getDefaultProvider({ chainId: 42 }, {
+    provider = ethers.getDefaultProvider("kovan", {
+      infura: "013641c7bbd54950b64584b51a782d0e",
       //  etherscan: process.env.ETHERSCAN_API_KEY,
-      infura: process.env.INFURA_API_KEY,
+      // infura: process.env.INFURA_API_KEY,
     //   alchemy: process.env.ALCHEMY_API_KEY,
     //   // pocket: process.env.POCKET_API_KEY,
     });
@@ -51,7 +51,7 @@
   }
 
   // NETWORK MUST BE KOVAN
-  $: if (chainId && chainId.toLowerCase() != "0x2a") {
+  $: if ($chainId && $chainId.toLowerCase() != "0x2a") {
     alert("FlashAccount is in beta mode ! only available on Kovan\nPlease switch to the Kovan testnet");
   }
 
@@ -267,7 +267,7 @@
   }
 </script>
 
-<Container bind:address bind:balance bind:chainId bind:signer>
+<Container >
   <div style="width: 80%;">
     <!-- BUMPER -->
     <div class="sectionbumper fs-sectionbumper">
