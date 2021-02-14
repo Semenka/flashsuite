@@ -2,7 +2,7 @@
   import Metamask from "./metamask.svelte";
 
   export let signer = "";
-  export let addresses = [];
+  // export let addresses = [];
   export let chainId = "";
 
   $: console.log("CONTAINER SIGNER", signer);
@@ -10,7 +10,7 @@
 
 <div class="nnavbar">
   <div class="nnavbarcontents">
-    <Metamask bind:signer bind:addresses bind:chainId />
+    <Metamask bind:signer bind:chainId />
   </div>
 </div>
 <div class="headermain fs-headermain">

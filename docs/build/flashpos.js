@@ -27306,22 +27306,17 @@
     	let div0;
     	let metamask;
     	let updating_signer;
-    	let updating_addresses;
     	let updating_chainId;
     	let t;
     	let div2;
     	let current;
 
     	function metamask_signer_binding(value) {
-    		/*metamask_signer_binding*/ ctx[5](value);
-    	}
-
-    	function metamask_addresses_binding(value) {
-    		/*metamask_addresses_binding*/ ctx[6](value);
+    		/*metamask_signer_binding*/ ctx[4](value);
     	}
 
     	function metamask_chainId_binding(value) {
-    		/*metamask_chainId_binding*/ ctx[7](value);
+    		/*metamask_chainId_binding*/ ctx[5](value);
     	}
 
     	let metamask_props = {};
@@ -27330,20 +27325,15 @@
     		metamask_props.signer = /*signer*/ ctx[0];
     	}
 
-    	if (/*addresses*/ ctx[1] !== void 0) {
-    		metamask_props.addresses = /*addresses*/ ctx[1];
-    	}
-
-    	if (/*chainId*/ ctx[2] !== void 0) {
-    		metamask_props.chainId = /*chainId*/ ctx[2];
+    	if (/*chainId*/ ctx[1] !== void 0) {
+    		metamask_props.chainId = /*chainId*/ ctx[1];
     	}
 
     	metamask = new Metamask({ props: metamask_props, $$inline: true });
     	binding_callbacks.push(() => bind(metamask, "signer", metamask_signer_binding));
-    	binding_callbacks.push(() => bind(metamask, "addresses", metamask_addresses_binding));
     	binding_callbacks.push(() => bind(metamask, "chainId", metamask_chainId_binding));
-    	const default_slot_template = /*#slots*/ ctx[4].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[3], null);
+    	const default_slot_template = /*#slots*/ ctx[3].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
 
     	const block = {
     		c: function create() {
@@ -27354,11 +27344,11 @@
     			div2 = element("div");
     			if (default_slot) default_slot.c();
     			attr_dev(div0, "class", "nnavbarcontents svelte-1hdsfe0");
-    			add_location(div0, file$3, 11, 2, 218);
+    			add_location(div0, file$3, 11, 2, 221);
     			attr_dev(div1, "class", "nnavbar svelte-1hdsfe0");
-    			add_location(div1, file$3, 10, 0, 194);
+    			add_location(div1, file$3, 10, 0, 197);
     			attr_dev(div2, "class", "headermain fs-headermain svelte-1hdsfe0");
-    			add_location(div2, file$3, 15, 0, 321);
+    			add_location(div2, file$3, 15, 0, 309);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -27385,23 +27375,17 @@
     				add_flush_callback(() => updating_signer = false);
     			}
 
-    			if (!updating_addresses && dirty & /*addresses*/ 2) {
-    				updating_addresses = true;
-    				metamask_changes.addresses = /*addresses*/ ctx[1];
-    				add_flush_callback(() => updating_addresses = false);
-    			}
-
-    			if (!updating_chainId && dirty & /*chainId*/ 4) {
+    			if (!updating_chainId && dirty & /*chainId*/ 2) {
     				updating_chainId = true;
-    				metamask_changes.chainId = /*chainId*/ ctx[2];
+    				metamask_changes.chainId = /*chainId*/ ctx[1];
     				add_flush_callback(() => updating_chainId = false);
     			}
 
     			metamask.$set(metamask_changes);
 
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 8) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[3], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 4) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[2], dirty, null, null);
     				}
     			}
     		},
@@ -27440,9 +27424,8 @@
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Container", slots, ['default']);
     	let { signer = "" } = $$props;
-    	let { addresses = [] } = $$props;
     	let { chainId = "" } = $$props;
-    	const writable_props = ["signer", "addresses", "chainId"];
+    	const writable_props = ["signer", "chainId"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<Container> was created with unknown prop '${key}'`);
@@ -27453,29 +27436,22 @@
     		$$invalidate(0, signer);
     	}
 
-    	function metamask_addresses_binding(value) {
-    		addresses = value;
-    		$$invalidate(1, addresses);
-    	}
-
     	function metamask_chainId_binding(value) {
     		chainId = value;
-    		$$invalidate(2, chainId);
+    		$$invalidate(1, chainId);
     	}
 
     	$$self.$$set = $$props => {
     		if ("signer" in $$props) $$invalidate(0, signer = $$props.signer);
-    		if ("addresses" in $$props) $$invalidate(1, addresses = $$props.addresses);
-    		if ("chainId" in $$props) $$invalidate(2, chainId = $$props.chainId);
-    		if ("$$scope" in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    		if ("chainId" in $$props) $$invalidate(1, chainId = $$props.chainId);
+    		if ("$$scope" in $$props) $$invalidate(2, $$scope = $$props.$$scope);
     	};
 
-    	$$self.$capture_state = () => ({ Metamask, signer, addresses, chainId });
+    	$$self.$capture_state = () => ({ Metamask, signer, chainId });
 
     	$$self.$inject_state = $$props => {
     		if ("signer" in $$props) $$invalidate(0, signer = $$props.signer);
-    		if ("addresses" in $$props) $$invalidate(1, addresses = $$props.addresses);
-    		if ("chainId" in $$props) $$invalidate(2, chainId = $$props.chainId);
+    		if ("chainId" in $$props) $$invalidate(1, chainId = $$props.chainId);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -27490,12 +27466,10 @@
 
     	return [
     		signer,
-    		addresses,
     		chainId,
     		$$scope,
     		slots,
     		metamask_signer_binding,
-    		metamask_addresses_binding,
     		metamask_chainId_binding
     	];
     }
@@ -27503,7 +27477,7 @@
     class Container extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { signer: 0, addresses: 1, chainId: 2 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { signer: 0, chainId: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -27521,14 +27495,6 @@
     		throw new Error("<Container>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get addresses() {
-    		throw new Error("<Container>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set addresses(value) {
-    		throw new Error("<Container>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
     	get chainId() {
     		throw new Error("<Container>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
@@ -27543,7 +27509,7 @@
     const { console: console_1$4 } = globals;
     const file$4 = "svelte/flashpos.svelte";
 
-    // (277:8) {#key refresh}
+    // (287:8) {#key refresh}
     function create_key_block$1(ctx) {
     	let dashboard0;
     	let updating_address;
@@ -27672,14 +27638,14 @@
     		block,
     		id: create_key_block$1.name,
     		type: "key",
-    		source: "(277:8) {#key refresh}",
+    		source: "(287:8) {#key refresh}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (282:6) {#if showAnimation}
+    // (292:6) {#if showAnimation}
     function create_if_block_3$1(ctx) {
     	let img;
     	let img_src_value;
@@ -27690,7 +27656,7 @@
     			if (img.src !== (img_src_value = "images/flashsuite_animation_200.gif")) attr_dev(img, "src", img_src_value);
     			set_style(img, "width", "100px");
     			attr_dev(img, "alt", "flashsuite-animation");
-    			add_location(img, file$4, 282, 8, 9386);
+    			add_location(img, file$4, 292, 8, 9749);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -27704,14 +27670,14 @@
     		block,
     		id: create_if_block_3$1.name,
     		type: "if",
-    		source: "(282:6) {#if showAnimation}",
+    		source: "(292:6) {#if showAnimation}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (286:8) {#if startMigration}
+    // (296:8) {#if startMigration}
     function create_if_block_2$1(ctx) {
     	let h1;
     	let t1;
@@ -27731,15 +27697,15 @@
     			div0 = element("div");
     			div0.textContent = "Start Migration";
     			attr_dev(h1, "class", "align-center svelte-1gxxwvd");
-    			add_location(h1, file$4, 286, 10, 9561);
+    			add_location(h1, file$4, 296, 10, 9924);
     			attr_dev(div0, "id", "amountDep02ORG");
     			attr_dev(div0, "class", "textlightmode buttodarkmode");
-    			add_location(div0, file$4, 289, 14, 9756);
+    			add_location(div0, file$4, 299, 14, 10119);
     			attr_dev(div1, "id", "migrateFlashPos");
     			attr_dev(div1, "class", "mainbutton fs-mainbutton svelte-1gxxwvd");
-    			add_location(div1, file$4, 288, 12, 9682);
+    			add_location(div1, file$4, 298, 12, 10045);
     			attr_dev(div2, "class", "buttonwrapper");
-    			add_location(div2, file$4, 287, 10, 9642);
+    			add_location(div2, file$4, 297, 10, 10005);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h1, anchor);
@@ -27767,14 +27733,14 @@
     		block,
     		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(286:8) {#if startMigration}",
+    		source: "(296:8) {#if startMigration}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (294:8) {#if migrationInProgress}
+    // (304:8) {#if migrationInProgress}
     function create_if_block$3(ctx) {
     	let div9;
     	let div6;
@@ -27826,33 +27792,33 @@
     			if (if_block) if_block.c();
     			attr_dev(div0, "id", "stepAction1");
     			attr_dev(div0, "class", "textlightmode instep");
-    			add_location(div0, file$4, 297, 16, 10114);
+    			add_location(div0, file$4, 307, 16, 10477);
     			attr_dev(div1, "class", "stepcolumn doingpurple w-col w-col-4");
-    			add_location(div1, file$4, 296, 14, 10047);
+    			add_location(div1, file$4, 306, 14, 10410);
     			attr_dev(div2, "id", "stepAction2");
     			attr_dev(div2, "class", "textlightmode instep");
-    			add_location(div2, file$4, 300, 16, 10338);
+    			add_location(div2, file$4, 310, 16, 10701);
     			attr_dev(div3, "class", div3_class_value = "stepcolumn w-col w-col-4 " + (/*step*/ ctx[4] >= 6 ? "doingpurple" : "inactivegrey"));
-    			add_location(div3, file$4, 299, 14, 10238);
+    			add_location(div3, file$4, 309, 14, 10601);
     			attr_dev(div4, "id", "stepAction3");
     			attr_dev(div4, "class", "textlightmode instep");
-    			add_location(div4, file$4, 303, 16, 10559);
+    			add_location(div4, file$4, 313, 16, 10922);
     			attr_dev(div5, "class", div5_class_value = "stepcolumn w-col w-col-4 " + (/*step*/ ctx[4] >= 7 ? "doingpurple" : "inactivegrey"));
-    			add_location(div5, file$4, 302, 14, 10459);
+    			add_location(div5, file$4, 312, 14, 10822);
     			attr_dev(div6, "class", "stepscolumnstop w-row");
-    			add_location(div6, file$4, 295, 12, 9997);
+    			add_location(div6, file$4, 305, 12, 10360);
     			attr_dev(p0, "id", "stepActionLabel");
     			attr_dev(p0, "class", "paragraph instep fs-message-2 svelte-1gxxwvd");
-    			add_location(p0, file$4, 307, 14, 10749);
+    			add_location(p0, file$4, 317, 14, 11112);
     			attr_dev(p1, "id", "stepActionLabel");
     			attr_dev(p1, "class", "paragraph instep fs-message-1 svelte-1gxxwvd");
-    			add_location(p1, file$4, 311, 16, 10917);
+    			add_location(p1, file$4, 321, 16, 11280);
     			set_style(div7, "display", "flex");
-    			add_location(div7, file$4, 310, 14, 10872);
+    			add_location(div7, file$4, 320, 14, 11235);
     			attr_dev(div8, "class", "actionmessage fs-actionmessage svelte-1gxxwvd");
-    			add_location(div8, file$4, 306, 12, 10690);
+    			add_location(div8, file$4, 316, 12, 11053);
     			attr_dev(div9, "class", "stepsprocesscontents");
-    			add_location(div9, file$4, 294, 10, 9950);
+    			add_location(div9, file$4, 304, 10, 10313);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div9, anchor);
@@ -27909,14 +27875,14 @@
     		block,
     		id: create_if_block$3.name,
     		type: "if",
-    		source: "(294:8) {#if migrationInProgress}",
+    		source: "(304:8) {#if migrationInProgress}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (315:16) {#if showSpinner}
+    // (325:16) {#if showSpinner}
     function create_if_block_1$2(ctx) {
     	let img;
     	let img_src_value;
@@ -27927,7 +27893,7 @@
     			attr_dev(img, "class", "fs-spinner svelte-1gxxwvd");
     			attr_dev(img, "alt", "spinner");
     			if (img.src !== (img_src_value = "images/spinner_purple.svg")) attr_dev(img, "src", img_src_value);
-    			add_location(img, file$4, 315, 18, 11081);
+    			add_location(img, file$4, 325, 18, 11444);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -27941,14 +27907,14 @@
     		block,
     		id: create_if_block_1$2.name,
     		type: "if",
-    		source: "(315:16) {#if showSpinner}",
+    		source: "(325:16) {#if showSpinner}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (260:0) <Container bind:address bind:balance bind:network bind:signer>
+    // (270:0) <Container bind:address bind:balance bind:chainId bind:signer>
     function create_default_slot(ctx) {
     	let div7;
     	let div1;
@@ -28030,36 +27996,36 @@
     			attr_dev(img0, "width", "125");
     			attr_dev(img0, "alt", "");
     			attr_dev(img0, "class", "flashlogo");
-    			add_location(img0, file$4, 264, 8, 8470);
+    			add_location(img0, file$4, 274, 8, 8823);
     			attr_dev(div0, "class", "blockimage");
-    			add_location(div0, file$4, 263, 6, 8437);
+    			add_location(div0, file$4, 273, 6, 8790);
     			attr_dev(div1, "class", "sectionbumper fs-sectionbumper svelte-1gxxwvd");
-    			add_location(div1, file$4, 262, 4, 8386);
+    			add_location(div1, file$4, 272, 4, 8739);
     			if (img1.src !== (img1_src_value = "images/FlashPos-SubLogo-Light.svg")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "loading", "lazy");
     			attr_dev(img1, "width", "200");
     			attr_dev(img1, "alt", "");
     			attr_dev(img1, "class", "sectionlogoimage");
-    			add_location(img1, file$4, 269, 6, 8675);
-    			add_location(h1, file$4, 270, 6, 8788);
+    			add_location(img1, file$4, 279, 6, 9028);
+    			add_location(h1, file$4, 280, 6, 9141);
     			attr_dev(div2, "id", "amountDep02ORG");
     			attr_dev(div2, "class", "textdarkmode button");
-    			add_location(div2, file$4, 274, 10, 8959);
+    			add_location(div2, file$4, 284, 10, 9312);
     			attr_dev(div3, "id", "chipFlashPos");
     			attr_dev(div3, "class", "sectionchip fs-chip svelte-1gxxwvd");
-    			add_location(div3, file$4, 273, 8, 8897);
+    			add_location(div3, file$4, 283, 8, 9250);
     			attr_dev(div4, "class", "columnspositions fs-columnspositions w-row svelte-1gxxwvd");
-    			add_location(div4, file$4, 272, 6, 8832);
-    			add_location(br0, file$4, 322, 26, 11289);
-    			add_location(br1, file$4, 323, 25, 11321);
-    			add_location(br2, file$4, 324, 35, 11363);
-    			add_location(small, file$4, 321, 8, 11255);
+    			add_location(div4, file$4, 282, 6, 9185);
+    			add_location(br0, file$4, 332, 26, 11652);
+    			add_location(br1, file$4, 333, 25, 11684);
+    			add_location(br2, file$4, 334, 35, 11726);
+    			add_location(small, file$4, 331, 8, 11618);
     			attr_dev(div5, "class", "w-100 svelte-1gxxwvd");
-    			add_location(div5, file$4, 284, 6, 9502);
+    			add_location(div5, file$4, 294, 6, 9865);
     			attr_dev(div6, "class", "sectioncontents fs-sectioncontents svelte-1gxxwvd");
-    			add_location(div6, file$4, 268, 4, 8620);
+    			add_location(div6, file$4, 278, 4, 8973);
     			set_style(div7, "width", "80%");
-    			add_location(div7, file$4, 260, 2, 8336);
+    			add_location(div7, file$4, 270, 2, 8689);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div7, anchor);
@@ -28173,7 +28139,7 @@
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(260:0) <Container bind:address bind:balance bind:network bind:signer>",
+    		source: "(270:0) <Container bind:address bind:balance bind:chainId bind:signer>",
     		ctx
     	});
 
@@ -28184,7 +28150,7 @@
     	let container;
     	let updating_address;
     	let updating_balance;
-    	let updating_network;
+    	let updating_chainId;
     	let updating_signer;
     	let current;
 
@@ -28196,8 +28162,8 @@
     		/*container_balance_binding*/ ctx[23](value);
     	}
 
-    	function container_network_binding(value) {
-    		/*container_network_binding*/ ctx[24](value);
+    	function container_chainId_binding(value) {
+    		/*container_chainId_binding*/ ctx[24](value);
     	}
 
     	function container_signer_binding(value) {
@@ -28217,8 +28183,8 @@
     		container_props.balance = /*balance*/ ctx[5];
     	}
 
-    	if (/*network*/ ctx[1] !== void 0) {
-    		container_props.network = /*network*/ ctx[1];
+    	if (/*chainId*/ ctx[1] !== void 0) {
+    		container_props.chainId = /*chainId*/ ctx[1];
     	}
 
     	if (/*signer*/ ctx[6] !== void 0) {
@@ -28228,7 +28194,7 @@
     	container = new Container({ props: container_props, $$inline: true });
     	binding_callbacks.push(() => bind(container, "address", container_address_binding));
     	binding_callbacks.push(() => bind(container, "balance", container_balance_binding));
-    	binding_callbacks.push(() => bind(container, "network", container_network_binding));
+    	binding_callbacks.push(() => bind(container, "chainId", container_chainId_binding));
     	binding_callbacks.push(() => bind(container, "signer", container_signer_binding));
 
     	const block = {
@@ -28245,7 +28211,7 @@
     		p: function update(ctx, dirty) {
     			const container_changes = {};
 
-    			if (dirty[0] & /*destination, origin, address, showSpinner, message, message2, step, migrationInProgress, startMigration, showAnimation, reget, originMessage*/ 61341 | dirty[1] & /*$$scope*/ 2048) {
+    			if (dirty[0] & /*destination, origin, address, showSpinner, message, message2, step, migrationInProgress, startMigration, showAnimation, reget, originMessage*/ 61341 | dirty[1] & /*$$scope*/ 4096) {
     				container_changes.$$scope = { dirty, ctx };
     			}
 
@@ -28261,10 +28227,10 @@
     				add_flush_callback(() => updating_balance = false);
     			}
 
-    			if (!updating_network && dirty[0] & /*network*/ 2) {
-    				updating_network = true;
-    				container_changes.network = /*network*/ ctx[1];
-    				add_flush_callback(() => updating_network = false);
+    			if (!updating_chainId && dirty[0] & /*chainId*/ 2) {
+    				updating_chainId = true;
+    				container_changes.chainId = /*chainId*/ ctx[1];
+    				add_flush_callback(() => updating_chainId = false);
     			}
 
     			if (!updating_signer && dirty[0] & /*signer*/ 64) {
@@ -28303,16 +28269,29 @@
     const ethscan$1 = "https://kovan.etherscan.io";
 
     function instance$4($$self, $$props, $$invalidate) {
+    	let ethersSigner;
     	let $Dashboards;
     	validate_store(Dashboards, "Dashboards");
     	component_subscribe($$self, Dashboards, $$value => $$invalidate(17, $Dashboards = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Flashpos", slots, []);
     	let address;
-    	let network;
+    	let chainId = "0x2a";
     	let balance;
     	let signer;
-    	let ethersSigner;
+    	let provider;
+
+    	onMount(async function () {
+    		provider = getDefaultProvider({ chainId: 42 }, {
+    			//  etherscan: process.env.ETHERSCAN_API_KEY,
+    			infura: process.env.INFURA_API_KEY
+    		}); //   alchemy: process.env.ALCHEMY_API_KEY,
+    		//   // pocket: process.env.POCKET_API_KEY,
+
+    		await FlashAccounts.Init(true);
+    		step0();
+    	});
+
     	let positionsAlice = [];
     	let origin = "";
     	let destination = "";
@@ -28545,11 +28524,6 @@
     		$$invalidate(10, message2 = ">>> Refresh your browser to start another migration");
     	}
 
-    	onMount(async function () {
-    		await FlashAccounts.Init(true);
-    		step0();
-    	});
-
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -28586,9 +28560,9 @@
     		$$invalidate(5, balance);
     	}
 
-    	function container_network_binding(value) {
-    		network = value;
-    		$$invalidate(1, network);
+    	function container_chainId_binding(value) {
+    		chainId = value;
+    		$$invalidate(1, chainId);
     	}
 
     	function container_signer_binding(value) {
@@ -28604,10 +28578,10 @@
     		Dashboard,
     		Container,
     		address,
-    		network,
+    		chainId,
     		balance,
     		signer,
-    		ethersSigner,
+    		provider,
     		positionsAlice,
     		origin,
     		destination,
@@ -28637,15 +28611,16 @@
     		step7,
     		step8,
     		step9,
+    		ethersSigner,
     		$Dashboards
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("address" in $$props) $$invalidate(0, address = $$props.address);
-    		if ("network" in $$props) $$invalidate(1, network = $$props.network);
+    		if ("chainId" in $$props) $$invalidate(1, chainId = $$props.chainId);
     		if ("balance" in $$props) $$invalidate(5, balance = $$props.balance);
     		if ("signer" in $$props) $$invalidate(6, signer = $$props.signer);
-    		if ("ethersSigner" in $$props) ethersSigner = $$props.ethersSigner;
+    		if ("provider" in $$props) provider = $$props.provider;
     		if ("positionsAlice" in $$props) positionsAlice = $$props.positionsAlice;
     		if ("origin" in $$props) $$invalidate(2, origin = $$props.origin);
     		if ("destination" in $$props) $$invalidate(3, destination = $$props.destination);
@@ -28660,6 +28635,7 @@
     		if ("showSpinner" in $$props) $$invalidate(14, showSpinner = $$props.showSpinner);
     		if ("showAnimation" in $$props) $$invalidate(15, showAnimation = $$props.showAnimation);
     		if ("healthFactorNextBob" in $$props) healthFactorNextBob = $$props.healthFactorNextBob;
+    		if ("ethersSigner" in $$props) ethersSigner = $$props.ethersSigner;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -28671,9 +28647,9 @@
     			console.log("ADDRESS FLASHPOS", address);
     		}
 
-    		if ($$self.$$.dirty[0] & /*network*/ 2) {
+    		if ($$self.$$.dirty[0] & /*chainId*/ 2) {
     			// NETWORK MUST BE KOVAN
-    			if (network && network != "kovan") {
+    			if (chainId && chainId.toLowerCase() != "0x2a") {
     				alert("FlashAccount is in beta mode ! only available on Kovan\nPlease switch to the Kovan testnet");
     			}
     		}
@@ -28718,9 +28694,11 @@
     		}
     	};
 
+    	ethersSigner = new Web3Provider(ethereum).getSigner();
+
     	return [
     		address,
-    		network,
+    		chainId,
     		origin,
     		destination,
     		step,
@@ -28743,7 +28721,7 @@
     		dashboard1_reget_binding,
     		container_address_binding,
     		container_balance_binding,
-    		container_network_binding,
+    		container_chainId_binding,
     		container_signer_binding
     	];
     }

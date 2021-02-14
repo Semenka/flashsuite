@@ -8,10 +8,24 @@
 
   // exports Metamask
   let address;
-  let network;
+  let chainId="0x2a";
   let balance;
   let signer;
-  let ethersSigner;
+  let provider;
+
+  onMount(async function () {
+    provider = ethers.getDefaultProvider({ chainId: 42 }, {
+      //  etherscan: process.env.ETHERSCAN_API_KEY,
+      infura: process.env.INFURA_API_KEY,
+    //   alchemy: process.env.ALCHEMY_API_KEY,
+    //   // pocket: process.env.POCKET_API_KEY,
+    });
+    await FlashAccountsContract.Init(true);
+    step0();
+  });
+
+  $: ethersSigner = new ethers.providers.Web3Provider(ethereum).getSigner();
+
   $: console.log("ADDRESS FLASHPOS", address);
 
   let positionsAlice = [];
@@ -37,7 +51,7 @@
   }
 
   // NETWORK MUST BE KOVAN
-  $: if (network && network != "kovan") {
+  $: if (chainId && chainId.toLowerCase() != "0x2a") {
     alert("FlashAccount is in beta mode ! only available on Kovan\nPlease switch to the Kovan testnet");
   }
 
@@ -251,13 +265,9 @@
     message = "";
     message2 = ">>> Refresh your browser to start another migration";
   }
-  onMount(async function () {
-    await FlashAccountsContract.Init(true);
-    step0();
-  });
 </script>
 
-<Container bind:address bind:balance bind:network bind:signer>
+<Container bind:address bind:balance bind:chainId bind:signer>
   <div style="width: 80%;">
     <!-- BUMPER -->
     <div class="sectionbumper fs-sectionbumper">
@@ -275,8 +285,8 @@
           <div id="amountDep02ORG" class="textdarkmode button">Position Migration</div>
         </div>
         {#key refresh}
-          <Dashboard bind:address={origin} name={"Origin " + (address==origin? "S":"")} ribbonMessage={originMessage} bind:reget />
-          <Dashboard bind:address={destination} name={"Destination " + (address==destination? "S":"")} bind:reget />
+          <Dashboard bind:address={origin} name={"Origin " + (address == origin ? "S" : "")} ribbonMessage={originMessage} bind:reget />
+          <Dashboard bind:address={destination} name={"Destination " + (address == destination ? "S" : "")} bind:reget />
         {/key}
       </div>
       {#if showAnimation}

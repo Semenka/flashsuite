@@ -857,22 +857,17 @@
     	let div0;
     	let metamask;
     	let updating_signer;
-    	let updating_addresses;
     	let updating_chainId;
     	let t;
     	let div2;
     	let current;
 
     	function metamask_signer_binding(value) {
-    		/*metamask_signer_binding*/ ctx[5](value);
-    	}
-
-    	function metamask_addresses_binding(value) {
-    		/*metamask_addresses_binding*/ ctx[6](value);
+    		/*metamask_signer_binding*/ ctx[4](value);
     	}
 
     	function metamask_chainId_binding(value) {
-    		/*metamask_chainId_binding*/ ctx[7](value);
+    		/*metamask_chainId_binding*/ ctx[5](value);
     	}
 
     	let metamask_props = {};
@@ -881,20 +876,15 @@
     		metamask_props.signer = /*signer*/ ctx[0];
     	}
 
-    	if (/*addresses*/ ctx[1] !== void 0) {
-    		metamask_props.addresses = /*addresses*/ ctx[1];
-    	}
-
-    	if (/*chainId*/ ctx[2] !== void 0) {
-    		metamask_props.chainId = /*chainId*/ ctx[2];
+    	if (/*chainId*/ ctx[1] !== void 0) {
+    		metamask_props.chainId = /*chainId*/ ctx[1];
     	}
 
     	metamask = new Metamask({ props: metamask_props, $$inline: true });
     	binding_callbacks.push(() => bind(metamask, "signer", metamask_signer_binding));
-    	binding_callbacks.push(() => bind(metamask, "addresses", metamask_addresses_binding));
     	binding_callbacks.push(() => bind(metamask, "chainId", metamask_chainId_binding));
-    	const default_slot_template = /*#slots*/ ctx[4].default;
-    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[3], null);
+    	const default_slot_template = /*#slots*/ ctx[3].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[2], null);
 
     	const block = {
     		c: function create() {
@@ -905,11 +895,11 @@
     			div2 = element("div");
     			if (default_slot) default_slot.c();
     			attr_dev(div0, "class", "nnavbarcontents svelte-1hdsfe0");
-    			add_location(div0, file$1, 11, 2, 218);
+    			add_location(div0, file$1, 11, 2, 221);
     			attr_dev(div1, "class", "nnavbar svelte-1hdsfe0");
-    			add_location(div1, file$1, 10, 0, 194);
+    			add_location(div1, file$1, 10, 0, 197);
     			attr_dev(div2, "class", "headermain fs-headermain svelte-1hdsfe0");
-    			add_location(div2, file$1, 15, 0, 321);
+    			add_location(div2, file$1, 15, 0, 309);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -936,23 +926,17 @@
     				add_flush_callback(() => updating_signer = false);
     			}
 
-    			if (!updating_addresses && dirty & /*addresses*/ 2) {
-    				updating_addresses = true;
-    				metamask_changes.addresses = /*addresses*/ ctx[1];
-    				add_flush_callback(() => updating_addresses = false);
-    			}
-
-    			if (!updating_chainId && dirty & /*chainId*/ 4) {
+    			if (!updating_chainId && dirty & /*chainId*/ 2) {
     				updating_chainId = true;
-    				metamask_changes.chainId = /*chainId*/ ctx[2];
+    				metamask_changes.chainId = /*chainId*/ ctx[1];
     				add_flush_callback(() => updating_chainId = false);
     			}
 
     			metamask.$set(metamask_changes);
 
     			if (default_slot) {
-    				if (default_slot.p && dirty & /*$$scope*/ 8) {
-    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[3], dirty, null, null);
+    				if (default_slot.p && dirty & /*$$scope*/ 4) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[2], dirty, null, null);
     				}
     			}
     		},
@@ -991,9 +975,8 @@
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Container", slots, ['default']);
     	let { signer = "" } = $$props;
-    	let { addresses = [] } = $$props;
     	let { chainId = "" } = $$props;
-    	const writable_props = ["signer", "addresses", "chainId"];
+    	const writable_props = ["signer", "chainId"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<Container> was created with unknown prop '${key}'`);
@@ -1004,29 +987,22 @@
     		$$invalidate(0, signer);
     	}
 
-    	function metamask_addresses_binding(value) {
-    		addresses = value;
-    		$$invalidate(1, addresses);
-    	}
-
     	function metamask_chainId_binding(value) {
     		chainId = value;
-    		$$invalidate(2, chainId);
+    		$$invalidate(1, chainId);
     	}
 
     	$$self.$$set = $$props => {
     		if ("signer" in $$props) $$invalidate(0, signer = $$props.signer);
-    		if ("addresses" in $$props) $$invalidate(1, addresses = $$props.addresses);
-    		if ("chainId" in $$props) $$invalidate(2, chainId = $$props.chainId);
-    		if ("$$scope" in $$props) $$invalidate(3, $$scope = $$props.$$scope);
+    		if ("chainId" in $$props) $$invalidate(1, chainId = $$props.chainId);
+    		if ("$$scope" in $$props) $$invalidate(2, $$scope = $$props.$$scope);
     	};
 
-    	$$self.$capture_state = () => ({ Metamask, signer, addresses, chainId });
+    	$$self.$capture_state = () => ({ Metamask, signer, chainId });
 
     	$$self.$inject_state = $$props => {
     		if ("signer" in $$props) $$invalidate(0, signer = $$props.signer);
-    		if ("addresses" in $$props) $$invalidate(1, addresses = $$props.addresses);
-    		if ("chainId" in $$props) $$invalidate(2, chainId = $$props.chainId);
+    		if ("chainId" in $$props) $$invalidate(1, chainId = $$props.chainId);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1041,12 +1017,10 @@
 
     	return [
     		signer,
-    		addresses,
     		chainId,
     		$$scope,
     		slots,
     		metamask_signer_binding,
-    		metamask_addresses_binding,
     		metamask_chainId_binding
     	];
     }
@@ -1054,7 +1028,7 @@
     class Container extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { signer: 0, addresses: 1, chainId: 2 });
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { signer: 0, chainId: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1069,14 +1043,6 @@
     	}
 
     	set signer(value) {
-    		throw new Error("<Container>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	get addresses() {
-    		throw new Error("<Container>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set addresses(value) {
     		throw new Error("<Container>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
